@@ -95,29 +95,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
         daysOfLogsToKeep = new JSpinner(daysOfLogsToKeepModel);
         daysOfLogsToKeep.setValue(App.settings.getDaysOfLogsToKeep());
         add(daysOfLogsToKeep, gbc);
-
-        // Enable Leaderboards
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.insets = LABEL_INSETS;
-        gbc.anchor = GridBagConstraints.BASELINE_TRAILING;
-        enableLeaderboardsLabel = new JLabelWithHover(Language.INSTANCE.localize("settings.leaderboards") + "?",
-                HELP_ICON, Language.INSTANCE.localize("settings.leaderboardshelp"));
-        add(enableLeaderboardsLabel, gbc);
-
-        gbc.gridx++;
-        gbc.insets = FIELD_INSETS;
-        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-        enableLeaderboards = new JCheckBox();
-        if (App.settings.enableLeaderboards()) {
-            enableLeaderboards.setSelected(true);
-        }
-        if (!App.settings.enableLogs()) {
-            enableLeaderboards.setEnabled(false);
-        }
-        add(enableLeaderboards, gbc);
-
         // Enable Logging
 
         gbc.gridx = 0;
