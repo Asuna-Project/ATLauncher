@@ -86,18 +86,6 @@ public class SetupDialog extends JDialog {
         language.setSelectedItem(Language.current());
         middle.add(language, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.anchor = GridBagConstraints.BASELINE_TRAILING;
-        enableLeaderboardsLabel = new JLabel("Enable Leaderboards? ");
-        middle.add(enableLeaderboardsLabel, gbc);
-
-        gbc.gridx++;
-        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-        enableLeaderboards = new JCheckBox();
-        enableLeaderboards.setSelected(true);
-        middle.add(enableLeaderboards, gbc);
-
         // Bottom Panel Stuff
         bottom = new JPanel();
         bottom.setLayout(new FlowLayout());
@@ -105,7 +93,7 @@ public class SetupDialog extends JDialog {
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 App.settings.setLanguage((String) language.getSelectedItem());
-                App.settings.setEnableLeaderboards(enableLeaderboards.isSelected());
+                App.settings.setEnableLeaderboards(false);
                 App.settings.saveProperties();
                 setVisible(false);
                 dispose();
