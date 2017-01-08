@@ -464,7 +464,7 @@ public class Instance implements Cloneable {
      * @return true if Leaderboard are enabled and statistics can be sent
      */
     public boolean isLeaderboardsEnabled() {
-        return (this.realPack != null && this.realPack.isLeaderboardsEnabled());
+        return false;
     }
 
     /**
@@ -1436,7 +1436,7 @@ public class Instance implements Cloneable {
             LogManager.logStackTrace("Failed to open instance.json for writing", e);
             return;
         }
-        
+
         try {
             writer.write(Gsons.DEFAULT.toJson(this));
             writer.flush();

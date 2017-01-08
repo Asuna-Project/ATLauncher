@@ -332,15 +332,7 @@ public class Settings {
 
         if (this.enableServerChecker) {
             this.startCheckingServers();
-        }
 
-        if (this.enableLogs) {
-            App.TASKPOOL.execute(new Runnable() {
-                @Override
-                public void run() {
-                    ATLauncherAPIUtils.postSystemInfo();
-                }
-            });
         }
     }
 
@@ -1149,7 +1141,7 @@ public class Settings {
         LogManager.debug("Loading server to use");
         try {
             this.properties.load(new FileInputStream(propertiesFile));
-            String serv = properties.getProperty("server", "Auto");
+            String serv = properties.getProperty("server", "Weiss");
             if (isServerByName(serv)) {
                 if (!userSelectableOnly || (userSelectableOnly && server.isUserSelectable())) {
                     this.server = getServerByName(serv);
@@ -1158,7 +1150,7 @@ public class Settings {
             }
             if (this.server == null) {
                 LogManager.warn("Server " + serv + " is invalid");
-                this.server = getServerByName("Auto"); // Server not found, use default of Auto
+                this.server = getServerByName("Weiss"); // Server not found, use default of Auto
                 this.originalServer = this.server;
             }
         } catch (FileNotFoundException e) {
@@ -2235,7 +2227,7 @@ public class Settings {
      * @return true if offline mode is enabled, false otherwise
      */
     public boolean isInOfflineMode() {
-        return this.offlineMode;
+        return this.offlineMode = false;
     }
 
     public void checkOnlineStatus() {
@@ -2249,7 +2241,7 @@ public class Settings {
             reloadPacksPanel();
             reloadInstancesPanel();
         } else {
-            this.offlineMode = true;
+            this.offlineMode = false;
         }
     }
 
@@ -2257,7 +2249,7 @@ public class Settings {
      * Sets the launcher to offline mode
      */
     public void setOfflineMode() {
-        this.offlineMode = true;
+        this.offlineMode = false;
     }
 
     /**
@@ -2612,7 +2604,7 @@ public class Settings {
     public String getLog() {
         return this.console.getLog();
     }
-    
+
     public void showKillMinecraft(Process minecraft) {
         this.minecraftProcess = minecraft;
         this.console.showKillMinecraft();
@@ -2880,11 +2872,11 @@ public class Settings {
     }
 
     public boolean enableLeaderboards() {
-        return this.enableLeaderboards;
+        return this.enableLeaderboards = false;
     }
 
     public void setEnableLeaderboards(boolean enableLeaderboards) {
-        this.enableLeaderboards = enableLeaderboards;
+        this.enableLeaderboards = false;
     }
 
     public boolean enableLogs() {
