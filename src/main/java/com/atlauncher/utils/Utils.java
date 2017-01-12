@@ -136,7 +136,7 @@ public class Utils {
                 LogManager.logStackTrace("Failed to open theme zip file", e);
                 return null;
             }
-            
+
             try {
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
@@ -249,7 +249,7 @@ public class Utils {
         File themeFile = App.settings == null ? null : App.settings.getThemeFile();
 
         if (themeFile != null) {
-    
+
             ZipFile zipFile;
             try {
                 zipFile = new ZipFile(themeFile);
@@ -260,10 +260,10 @@ public class Utils {
                 LogManager.logStackTrace("Failed to open theme zip file", e);
                 return null;
             }
-            
+
             try {
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
-        
+
                 InputStream stream = null;
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = entries.nextElement();
@@ -296,7 +296,7 @@ public class Utils {
         if (stream == null) {
             throw new NullPointerException("Stream == null");
         }
-    
+
         try {
             return ImageIO.read(stream);
         } catch (IOException e) {
@@ -1003,17 +1003,17 @@ public class Utils {
             canon = file;
         } else {
             File canonDir = null;
-    
+
             try {
                 canonDir = file.getParentFile().getCanonicalFile();
             } catch (IOException e) {
                 LogManager.logStackTrace("Failed to get canonical file", e);
                 return false;
             }
-    
+
             canon = new File(canonDir, file.getName());
         }
-    
+
         try {
             return !canon.getCanonicalFile().equals(canon.getAbsoluteFile());
         } catch (IOException e) {
@@ -1313,75 +1313,6 @@ public class Utils {
         reader.close();
         return response.toString();
     }
-
-    public static String sendAPICall(String path, Object data) throws IOException {
-        StringBuilder response = null;
-
-        byte[] contents = Gsons.DEFAULT.toJson(data).getBytes();
-
-        URL url = new URL(Constants.API_BASE_URL + path);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("User-Agent", App.settings.getUserAgent());
-        connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-        connection.setRequestProperty("Cache-Control", "no-store,max-age=0,no-cache");
-        connection.setRequestProperty("Expires", "0");
-        connection.setRequestProperty("Pragma", "no-cache");
-
-        connection.setRequestProperty("Content-Length", "" + contents.length);
-
-        connection.setUseCaches(false);
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-
-        DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-        writer.write(contents);
-        writer.flush();
-        writer.close();
-
-        // Read the result
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-        reader.close();
-        return response.toString();
-    }
-
-    public static String sendGetAPICall(String path) throws IOException {
-        StringBuilder response = null;
-
-        URL url = new URL(Constants.API_BASE_URL + path);
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", App.settings.getUserAgent());
-        connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-        connection.setRequestProperty("Cache-Control", "no-store,max-age=0,no-cache");
-        connection.setRequestProperty("Expires", "0");
-        connection.setRequestProperty("Pragma", "no-cache");
-
-        connection.setUseCaches(false);
-        connection.setDoOutput(true);
-
-        // Read the result
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-        reader.close();
-        return response.toString();
-    }
-
     /**
      * Checks for meta inf.
      *

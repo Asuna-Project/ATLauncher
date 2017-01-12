@@ -453,8 +453,6 @@ public class InstanceCard extends CollapsiblePanel implements RelocalizationList
                     JMenuItem changeImageItem = new JMenuItem(Language.INSTANCE.localize("instance.changeimage"));
                     rightClickMenu.add(changeImageItem);
 
-                    JMenuItem shareCodeItem = new JMenuItem(Language.INSTANCE.localize("instance.sharecode"));
-                    rightClickMenu.add(shareCodeItem);
 
                     JMenuItem updateItem = new JMenuItem(Language.INSTANCE.localize("common.update"));
                     rightClickMenu.add(updateItem);
@@ -528,33 +526,6 @@ public class InstanceCard extends CollapsiblePanel implements RelocalizationList
                         }
                     });
 
-                    shareCodeItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (!instance.getInstalledOptionalModNames().isEmpty()) {
-                                try {
-                                    APIResponse response = Gsons.DEFAULT.fromJson(Utils.sendAPICall("pack/" +
-                                            instance.getRealPack().getSafeName() + "/" + instance.getVersion() +
-                                            "/share-code", instance.getShareCodeData()), APIResponse.class);
-
-                                    if (response.wasError()) {
-                                        App.TOASTER.pop(Language.INSTANCE.localize("instance.nooptionalmods"));
-                                    } else {
-                                        StringSelection text = new StringSelection(response.getDataAsString());
-                                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                                        clipboard.setContents(text, null);
-
-                                        App.TOASTER.pop(Language.INSTANCE.localize("instance.sharecodecopied"));
-                                        LogManager.info("Share code copied to clipboard");
-                                    }
-                                } catch (IOException ex) {
-                                    LogManager.logStackTrace("API call failed", ex);
-                                }
-                            } else {
-                                App.TOASTER.pop(Language.INSTANCE.localize("instance.nooptionalmods"));
-                            }
-                        }
-                    });
                 }
             }
 

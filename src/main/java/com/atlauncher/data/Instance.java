@@ -1293,13 +1293,6 @@ public class Instance implements Cloneable {
                             if (isLeaderboardsEnabled() && isLoggingEnabled() && !isDev() && App.settings.enableLogs
                                 ()) {
                                 final int timePlayed = (int) (end - start) / 1000;
-                                if (timePlayed > 0) {
-                                    App.TASKPOOL.submit(new Runnable() {
-                                        public void run() {
-                                            addTimePlayed(timePlayed, (isDev ? "dev" : getVersion()));
-                                        }
-                                    });
-                                }
                             }
                             if (App.settings.keepLauncherOpen() && App.settings.hasUpdatedFiles()) {
                                 App.settings.reloadLauncherData();
@@ -1355,24 +1348,6 @@ public class Instance implements Cloneable {
         }
     }
 
-    public String addTimePlayed(int time, String version) {
-        Map<String, Object> request = new HashMap<String, Object>();
-
-        if (App.settings.enableLeaderboards()) {
-            request.put("username", App.settings.getAccount().getMinecraftUsername());
-        } else {
-            request.put("username", null);
-        }
-        request.put("version", version);
-        request.put("time", time);
-
-        try {
-            return Utils.sendAPICall("pack/" + getRealPack().getSafeName() + "/timeplayed/", request);
-        } catch (IOException e) {
-            LogManager.logStackTrace(e);
-        }
-        return "Leaderboard Time Not Added!";
-    }
 
     /**
      * Clones a given instance of this class.
@@ -1436,7 +1411,7 @@ public class Instance implements Cloneable {
             LogManager.logStackTrace("Failed to open instance.json for writing", e);
             return;
         }
-        
+
         try {
             writer.write(Gsons.DEFAULT.toJson(this));
             writer.flush();

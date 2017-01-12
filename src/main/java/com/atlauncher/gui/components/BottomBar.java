@@ -32,13 +32,7 @@ import java.awt.event.ActionListener;
 public abstract class BottomBar extends JPanel {
     private static final long serialVersionUID = -7488195680365431776L;
 
-    protected final JButton nodeCraftIcon = new SMButton("/assets/image/NodeCraftIcon.png", "NodeCraft - Setup a " +
-            "Minecraft server with an ATL modpack in less than 60 seconds");
-    protected final JButton discordIcon = new SMButton("/assets/image/DiscordIcon.png", "Discord");
-    protected final JButton facebookIcon = new SMButton("/assets/image/FacebookIcon.png", "Facebook");
-    protected final JButton githubIcon = new SMButton("/assets/image/GitHubIcon.png", "GitHub");
-    protected final JButton twitterIcon = new SMButton("/assets/image/TwitterIcon.png", "Twitter");
-    protected final JButton redditIcon = new SMButton("/assets/image/RedditIcon.png", "Reddit");
+    protected final JButton discordIcon = new SMButton("/assets/image/DiscordIcon.png", "Asuna Launcher's Discord");
 
     protected final JPanel rightSide = new JPanel(new FlowLayout());
 
@@ -48,49 +42,14 @@ public abstract class BottomBar extends JPanel {
         this.setPreferredSize(new Dimension(0, 50));
         this.add(this.rightSide, BorderLayout.EAST);
         this.setupSocialButtonListeners();
-        this.rightSide.add(this.nodeCraftIcon);
         this.rightSide.add(this.discordIcon);
-        this.rightSide.add(this.facebookIcon);
-        this.rightSide.add(this.githubIcon);
-        this.rightSide.add(this.redditIcon);
-        this.rightSide.add(this.twitterIcon);
     }
 
     private void setupSocialButtonListeners() {
-        nodeCraftIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LogManager.info("Opening Up NodeCraft");
-                Utils.openBrowser("https://atl.pw/nodecraft-from-launcher");
-            }
-        });
         discordIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LogManager.info("Opening Up ATLauncher Discord");
-                Utils.openBrowser("https://atl.pw/discord");
-            }
-        });
-        facebookIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LogManager.info("Opening Up ATLauncher Facebook Page");
-                Utils.openBrowser("https://atl.pw/facebook");
-            }
-        });
-        githubIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LogManager.info("Opening Up ATLauncher GitHub Page");
-                Utils.openBrowser("https://atl.pw/github-launcher-3");
-            }
-        });
-        redditIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LogManager.info("Opening Up ATLauncher Reddit Page");
-                Utils.openBrowser("https://atl.pw/reddit");
-            }
-        });
-        twitterIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LogManager.info("Opening Up ATLauncher Twitter Page");
-                Utils.openBrowser("https://atl.pw/twitter");
+                Utils.openBrowser("https://discord.gg/UNFq3cU");
             }
         });
     }

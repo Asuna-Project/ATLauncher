@@ -20,7 +20,6 @@ package com.atlauncher.data;
 public class Constants {
     public static final LauncherVersion VERSION = new LauncherVersion(3, 2, 4, 0);
     public static final String LAUNCHER_NAME = "AsunaLauncher";
-    public static final String API_BASE_URL = "https://api.atlauncher.com/v1/launcher/";
     public static final String PASTE_CHECK_URL = "http://paste.atlauncher.com";
     public static final String PASTE_API_URL = "http://paste.atlauncher.com/api/create";
     public static final Server[] SERVERS = new Server[]{
