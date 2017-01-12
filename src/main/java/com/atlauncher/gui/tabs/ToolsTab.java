@@ -20,7 +20,6 @@ package com.atlauncher.gui.tabs;
 import com.atlauncher.data.Language;
 import com.atlauncher.gui.components.BlankToolPanel;
 import com.atlauncher.gui.components.LogClearerToolPanel;
-import com.atlauncher.gui.components.NetworkCheckerToolPanel;
 import com.atlauncher.gui.components.ServerCheckerToolPanel;
 
 import javax.swing.JPanel;
@@ -38,7 +37,6 @@ public class ToolsTab extends JPanel implements Tab {
 
         mainPanel.setLayout(new GridLayout(3, 2));
 
-        mainPanel.add(new NetworkCheckerToolPanel());
         mainPanel.add(new ServerCheckerToolPanel());
         mainPanel.add(new LogClearerToolPanel());
         mainPanel.add(new BlankToolPanel());

@@ -31,7 +31,7 @@ public final class Theme {
     /**
      * This is the default theme used by the launcher incase all else fails and it cannot read the theme from disk.
      */
-    public static final Theme DEFAULT_THEME = new Theme(Constants.LAUNCHER_NAME, "Elucia", false, new Color(40, 45, 50)
+    public static final Theme DEFAULT_THEME = new Theme(Constants.LAUNCHER_NAME, "Elucia", false, new Color(45, 45, 45)
             , new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 136, 204), new Color(100, 100, 200), new
             Color(80, 170, 107), new Color(50, 55, 60), new Color(50, 55, 60), new Color(30, 35, 40), new Color(255,
             255, 255), new Color(255, 0, 0), new Color(255, 255, 255), new Color(137, 194, 54), new Color(255, 255,
