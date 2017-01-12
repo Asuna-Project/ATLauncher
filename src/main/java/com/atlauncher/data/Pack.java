@@ -49,7 +49,6 @@ public class Pack {
     private List<PackVersion> versions;
     private List<PackVersion> devVersions;
     private boolean createServer;
-    private boolean leaderboards;
     private boolean logging;
     private String description;
     private String discordInviteURL;
@@ -134,9 +133,6 @@ public class Pack {
         return this.logging;
     }
 
-    public boolean isLeaderboardsEnabled() {
-        return this.leaderboards;
-    }
 
     public void addTesters(List<String> users) {
         this.testers.addAll(users);
@@ -890,47 +886,5 @@ public class Pack {
             LogManager.logStackTrace(e);
         }
         return files;
-    }
-
-    public String addInstall(String version) {
-        Map<String, Object> request = new HashMap<String, Object>();
-
-        request.put("username", App.settings.getAccount().getMinecraftUsername());
-        request.put("version", version);
-
-        try {
-            return Utils.sendAPICall("pack/" + getSafeName() + "/installed/", request);
-        } catch (IOException e) {
-            LogManager.logStackTrace(e);
-        }
-        return "Install Not Added!";
-    }
-
-    public String addServerInstall(String version) {
-        Map<String, Object> request = new HashMap<String, Object>();
-
-        request.put("username", App.settings.getAccount().getMinecraftUsername());
-        request.put("version", version);
-
-        try {
-            return Utils.sendAPICall("pack/" + getSafeName() + "/serverinstalled/", request);
-        } catch (IOException e) {
-            LogManager.logStackTrace(e);
-        }
-        return "Install Not Added!";
-    }
-
-    public String addUpdate(String version) {
-        Map<String, Object> request = new HashMap<String, Object>();
-
-        request.put("username", App.settings.getAccount().getMinecraftUsername());
-        request.put("version", version);
-
-        try {
-            return Utils.sendAPICall("pack/" + getSafeName() + "/updated/", request);
-        } catch (IOException e) {
-            LogManager.logStackTrace(e);
-        }
-        return "Install Not Added!";
     }
 }

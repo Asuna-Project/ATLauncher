@@ -29,7 +29,6 @@ import com.atlauncher.evnt.manager.ConsoleOpenManager;
 import com.atlauncher.evnt.manager.RelocalizationManager;
 import com.atlauncher.gui.AccountsDropDownRenderer;
 import com.atlauncher.gui.CustomLineBorder;
-import com.atlauncher.gui.dialogs.GithubIssueReporterDialog;
 import com.atlauncher.gui.dialogs.ProgressDialog;
 import com.atlauncher.utils.Utils;
 
@@ -39,7 +38,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolTip;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -69,17 +67,6 @@ public class LauncherBottomBar extends BottomBar implements RelocalizationListen
     private JLabel statusIcon;
 
     public LauncherBottomBar() {
-        submitError.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        new GithubIssueReporterDialog(null).setVisible(true);
-                    }
-                });
-            }
-        });
 
         leftSide = new JPanel();
         leftSide.setLayout(new GridBagLayout());

@@ -50,8 +50,6 @@ public class SetupDialog extends JDialog {
     private JLabel languageLabel;
     private JComboBox<String> language;
 
-    private JLabel enableLeaderboardsLabel;
-    private JCheckBox enableLeaderboards;
 
     private JButton saveButton;
 
@@ -86,6 +84,8 @@ public class SetupDialog extends JDialog {
         language.setSelectedItem(Language.current());
         middle.add(language, gbc);
 
+
+
         // Bottom Panel Stuff
         bottom = new JPanel();
         bottom.setLayout(new FlowLayout());
@@ -93,7 +93,6 @@ public class SetupDialog extends JDialog {
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 App.settings.setLanguage((String) language.getSelectedItem());
-                App.settings.setEnableLeaderboards(false);
                 App.settings.saveProperties();
                 setVisible(false);
                 dispose();

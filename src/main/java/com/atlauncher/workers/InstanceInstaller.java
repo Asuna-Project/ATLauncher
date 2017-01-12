@@ -1167,9 +1167,6 @@ public class InstanceInstaller extends SwingWorker<Boolean, Void> {
         if (this.allMods.size() != 0 && hasOptional) {
             ModsChooser modsChooser = new ModsChooser(this);
 
-            if (this.shareCode != null) {
-                modsChooser.applyShareCode(shareCode);
-            }
 
             if (this.showModsChooser) {
                 modsChooser.setVisible(true);
@@ -1334,7 +1331,7 @@ public class InstanceInstaller extends SwingWorker<Boolean, Void> {
 
         try {
             this.jsonVersion = Gsons.DEFAULT.fromJson(this.pack.getJSON(version.getVersion()), Version.class);
-            return installUsingJSON();
+            LogManager.error("You cant use background installs yet !");
         } catch (JsonParseException e) {
             LogManager.logStackTrace("Couldn't parse JSON of pack!", e);
         }
@@ -1505,20 +1502,4 @@ public class InstanceInstaller extends SwingWorker<Boolean, Void> {
         }
     }
 
-    public String getShareCodeData(String code) {
-        String shareCodeData = null;
-
-        try {
-            APIResponse response = Gsons.DEFAULT.fromJson(Utils.sendGetAPICall("pack/" + this.pack.getSafeName() + "/" +
-                    version.getVersion() + "/share-code/" + code), APIResponse.class);
-
-            if (!response.wasError()) {
-                shareCodeData = response.getDataAsString();
-            }
-        } catch (IOException e) {
-            LogManager.logStackTrace("API call failed", e);
-        }
-
-        return shareCodeData;
-    }
 }

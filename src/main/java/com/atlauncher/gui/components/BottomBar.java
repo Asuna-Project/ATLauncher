@@ -32,7 +32,7 @@ import java.awt.event.ActionListener;
 public abstract class BottomBar extends JPanel {
     private static final long serialVersionUID = -7488195680365431776L;
 
-    protected final JButton discordIcon = new SMButton("/assets/image/discord.png", "Official Discord Server");
+    protected final JButton discordIcon = new SMButton("/assets/image/DiscordIcon.png", "Asuna Launcher's Discord");
 
     protected final JPanel rightSide = new JPanel(new FlowLayout());
 
@@ -48,7 +48,7 @@ public abstract class BottomBar extends JPanel {
     private void setupSocialButtonListeners() {
         discordIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LogManager.info("Opening Up Discord");
+                LogManager.info("Opening Up ATLauncher Discord");
                 Utils.openBrowser("https://discord.gg/UNFq3cU");
             }
         });

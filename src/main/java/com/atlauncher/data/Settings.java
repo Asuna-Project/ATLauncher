@@ -77,7 +77,6 @@ import com.atlauncher.gui.tabs.InstancesTab;
 import com.atlauncher.gui.tabs.NewsTab;
 import com.atlauncher.gui.tabs.PacksTab;
 import com.atlauncher.thread.LoggingThread;
-import com.atlauncher.utils.ATLauncherAPIUtils;
 import com.atlauncher.utils.HTMLUtils;
 import com.atlauncher.utils.MojangAPIUtils;
 import com.atlauncher.utils.Timestamper;
@@ -116,7 +115,6 @@ public class Settings {
     private boolean keepLauncherOpen; // If we should close the Launcher after Minecraft has closed
     private boolean enableConsole; // If to show the console by default
     private boolean enableTrayIcon; // If to enable tray icon
-    private boolean enableLeaderboards; // If to enable the leaderboards
     private boolean enableLogs; // If to enable logs
     private boolean enableOpenEyeReporting; // If to enable OpenEye reporting
     private boolean enableProxy = false; // If proxy is in use
@@ -332,8 +330,8 @@ public class Settings {
 
         if (this.enableServerChecker) {
             this.startCheckingServers();
-
         }
+
     }
 
     private void checkAccountsForNameChanges() {
@@ -1141,7 +1139,7 @@ public class Settings {
         LogManager.debug("Loading server to use");
         try {
             this.properties.load(new FileInputStream(propertiesFile));
-            String serv = properties.getProperty("server", "Weiss");
+            String serv = properties.getProperty("server", "Auto");
             if (isServerByName(serv)) {
                 if (!userSelectableOnly || (userSelectableOnly && server.isUserSelectable())) {
                     this.server = getServerByName(serv);
@@ -1150,7 +1148,7 @@ public class Settings {
             }
             if (this.server == null) {
                 LogManager.warn("Server " + serv + " is invalid");
-                this.server = getServerByName("Weiss"); // Server not found, use default of Auto
+                this.server = getServerByName("Auto"); // Server not found, use default of Auto
                 this.originalServer = this.server;
             }
         } catch (FileNotFoundException e) {
@@ -1362,7 +1360,6 @@ public class Settings {
 
             this.enableTrayIcon = Boolean.parseBoolean(properties.getProperty("enabletrayicon", "true"));
 
-            this.enableLeaderboards = Boolean.parseBoolean(properties.getProperty("enableleaderboards", "false"));
 
             this.enableLogs = Boolean.parseBoolean(properties.getProperty("enablelogs", "true"));
 
@@ -1482,7 +1479,6 @@ public class Settings {
             properties.setProperty("keeplauncheropen", (this.keepLauncherOpen) ? "true" : "false");
             properties.setProperty("enableconsole", (this.enableConsole) ? "true" : "false");
             properties.setProperty("enabletrayicon", (this.enableTrayIcon) ? "true" : "false");
-            properties.setProperty("enableleaderboards", (this.enableLeaderboards) ? "true" : "false");
             properties.setProperty("enablelogs", (this.enableLogs) ? "true" : "false");
             properties.setProperty("enablepacktags", (this.enablePackTags) ? "true" : "false");
             properties.setProperty("enableserverchecker", (this.enableServerChecker) ? "true" : "false");
@@ -2227,7 +2223,7 @@ public class Settings {
      * @return true if offline mode is enabled, false otherwise
      */
     public boolean isInOfflineMode() {
-        return this.offlineMode = false;
+        return this.offlineMode;
     }
 
     public void checkOnlineStatus() {
@@ -2241,7 +2237,7 @@ public class Settings {
             reloadPacksPanel();
             reloadInstancesPanel();
         } else {
-            this.offlineMode = false;
+            this.offlineMode = true;
         }
     }
 
@@ -2249,7 +2245,7 @@ public class Settings {
      * Sets the launcher to offline mode
      */
     public void setOfflineMode() {
-        this.offlineMode = false;
+        this.offlineMode = true;
     }
 
     /**
@@ -2871,13 +2867,7 @@ public class Settings {
         this.enableTrayIcon = enableTrayIcon;
     }
 
-    public boolean enableLeaderboards() {
-        return this.enableLeaderboards = false;
-    }
 
-    public void setEnableLeaderboards(boolean enableLeaderboards) {
-        this.enableLeaderboards = false;
-    }
 
     public boolean enableLogs() {
         return this.enableLogs;

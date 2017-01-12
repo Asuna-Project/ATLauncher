@@ -42,8 +42,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
     private SpinnerModel daysOfLogsToKeepModel;
     private JSpinner daysOfLogsToKeep;
 
-    private JLabelWithHover enableLeaderboardsLabel;
-    private JCheckBox enableLeaderboards;
 
     private JLabelWithHover enableLoggingLabel;
     private JCheckBox enableLogs;
@@ -95,6 +93,7 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
         daysOfLogsToKeep = new JSpinner(daysOfLogsToKeepModel);
         daysOfLogsToKeep.setValue(App.settings.getDaysOfLogsToKeep());
         add(daysOfLogsToKeep, gbc);
+
         // Enable Logging
 
         gbc.gridx = 0;
@@ -114,13 +113,9 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
                 if (!enableLogs.isSelected()) {
                     enableOpenEyeReporting.setSelected(false);
                     enableOpenEyeReporting.setEnabled(false);
-                    enableLeaderboards.setSelected(false);
-                    enableLeaderboards.setEnabled(false);
                 } else {
                     enableOpenEyeReporting.setSelected(true);
                     enableOpenEyeReporting.setEnabled(true);
-                    enableLeaderboards.setSelected(true);
-                    enableLeaderboards.setEnabled(true);
                 }
             }
         });
@@ -156,7 +151,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
     public void save() {
         App.settings.setForgeLoggingLevel((String) forgeLoggingLevel.getSelectedItem());
         App.settings.setDaysOfLogsToKeep((Integer) daysOfLogsToKeep.getValue());
-        App.settings.setEnableLeaderboards(enableLeaderboards.isSelected());
         App.settings.setEnableLogs(enableLogs.isSelected());
         App.settings.setEnableOpenEyeReporting(enableOpenEyeReporting.isSelected());
     }
@@ -175,8 +169,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
         this.daysOfLogsToKeepLabel.setText(Language.INSTANCE.localize("settings.daysoflogstokeep") + "?");
         this.daysOfLogsToKeepLabel.setToolTipText(Language.INSTANCE.localize("settings.daysoflogstokeephelp"));
 
-        this.enableLeaderboardsLabel.setText(Language.INSTANCE.localize("settings.leaderboards") + "?");
-        this.enableLeaderboardsLabel.setToolTipText(Language.INSTANCE.localize("settings.leaderboardshelp"));
 
         this.enableLoggingLabel.setText(Language.INSTANCE.localize("settings.logging") + "?");
         this.enableLoggingLabel.setToolTipText("<html>" + Language.INSTANCE.localizeWithReplace("settings" + "" +

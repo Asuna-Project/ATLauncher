@@ -457,15 +457,6 @@ public class Instance implements Cloneable {
         return this.isConverted;
     }
 
-    /**
-     * Checks to see if Leaderboards are enabled for the Pack this Instance was created from. If the pack no longer
-     * exists we don't allow logging of Leaderboard statistics.
-     *
-     * @return true if Leaderboard are enabled and statistics can be sent
-     */
-    public boolean isLeaderboardsEnabled() {
-        return false;
-    }
 
     /**
      * Checks to see if Logging is enabled for the Pack this Instance was created from. If the pack no longer exists we
@@ -1290,17 +1281,6 @@ public class Instance implements Cloneable {
 
                         App.settings.setMinecraftLaunched(false);
                         if (!App.settings.isInOfflineMode()) {
-                            if (isLeaderboardsEnabled() && isLoggingEnabled() && !isDev() && App.settings.enableLogs
-                                ()) {
-                                final int timePlayed = (int) (end - start) / 1000;
-                                if (timePlayed > 0) {
-                                    App.TASKPOOL.submit(new Runnable() {
-                                        public void run() {
-                                            addTimePlayed(timePlayed, (isDev ? "dev" : getVersion()));
-                                        }
-                                    });
-                                }
-                            }
                             if (App.settings.keepLauncherOpen() && App.settings.hasUpdatedFiles()) {
                                 App.settings.reloadLauncherData();
                             }
@@ -1355,24 +1335,6 @@ public class Instance implements Cloneable {
         }
     }
 
-    public String addTimePlayed(int time, String version) {
-        Map<String, Object> request = new HashMap<String, Object>();
-
-        if (App.settings.enableLeaderboards()) {
-            request.put("username", App.settings.getAccount().getMinecraftUsername());
-        } else {
-            request.put("username", null);
-        }
-        request.put("version", version);
-        request.put("time", time);
-
-        try {
-            return Utils.sendAPICall("pack/" + getRealPack().getSafeName() + "/timeplayed/", request);
-        } catch (IOException e) {
-            LogManager.logStackTrace(e);
-        }
-        return "Leaderboard Time Not Added!";
-    }
 
     /**
      * Clones a given instance of this class.

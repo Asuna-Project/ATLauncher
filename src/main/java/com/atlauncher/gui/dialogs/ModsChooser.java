@@ -129,21 +129,6 @@ public class ModsChooser extends JDialog {
         JPanel bottomPanel = new JPanel();
         add(bottomPanel, BorderLayout.SOUTH);
 
-        useShareCode = new JButton();
-        useShareCode.setText(Language.INSTANCE.localize("instance.usesharecode"));
-        useShareCode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String ret = JOptionPane.showInputDialog(null, Language.INSTANCE.localize("instance.entersharecode"),
-                        Language.INSTANCE.localize("instance.sharecode"), JOptionPane.QUESTION_MESSAGE);
-
-                if (ret != null) {
-                    applyShareCode(ret);
-                }
-            }
-        });
-        bottomPanel.add(useShareCode);
-
         selectAllButton = new JButton();
 
         if (installer.hasRecommendedMods()) {
@@ -378,55 +363,6 @@ public class ModsChooser extends JDialog {
         return width;
     }
 
-    public void applyShareCode(String code) {
-        try {
-            String data = installer.getShareCodeData(code);
-
-            if (data == null) {
-                Toaster.instance().popError(Language.INSTANCE.localize("instance.invalidsharecode"));
-                return;
-            }
-
-            java.lang.reflect.Type type = new TypeToken<Map<String, List<Map<String, String>>>>() {
-            }.getType();
-
-            Map<String, List<Map<String, String>>> mods = Gsons.DEFAULT.fromJson(data, type);
-
-            if (mods == null) {
-                Toaster.instance().popError(Language.INSTANCE.localize("instance.invalidsharecode"));
-                return;
-            }
-
-            List<Map<String, String>> optionalMods = mods.get("optional");
-
-            if (optionalMods == null || optionalMods.size() == 0) {
-                Toaster.instance().popError(Language.INSTANCE.localize("instance.invalidsharecode"));
-                return;
-            }
-
-            for (ModsJCheckBox checkbox : this.modCheckboxes) {
-                if (!checkbox.getMod().isOptional()) {
-                    continue;
-                }
-
-                boolean found = false;
-
-                for (Map<String, String> mod : optionalMods) {
-                    if (mod.get("name").equalsIgnoreCase(checkbox.getMod().getName())) {
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (found) {
-                    checkbox.setSelected(true);
-                }
-            }
-        } catch (Exception e) {
-            LogManager.error("Invalid share code!");
-            Toaster.instance().popError(Language.INSTANCE.localize("instance.invalidsharecode"));
-        }
-    }
 
     private List<Mod> modsToChange(Mod mod) {
         return installer.getLinkedMods(mod);
