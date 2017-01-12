@@ -115,7 +115,6 @@ public class Settings {
     private boolean keepLauncherOpen; // If we should close the Launcher after Minecraft has closed
     private boolean enableConsole; // If to show the console by default
     private boolean enableTrayIcon; // If to enable tray icon
-    private boolean enableLeaderboards; // If to enable the leaderboards
     private boolean enableLogs; // If to enable logs
     private boolean enableOpenEyeReporting; // If to enable OpenEye reporting
     private boolean enableProxy = false; // If proxy is in use
@@ -1361,7 +1360,6 @@ public class Settings {
 
             this.enableTrayIcon = Boolean.parseBoolean(properties.getProperty("enabletrayicon", "true"));
 
-            this.enableLeaderboards = Boolean.parseBoolean(properties.getProperty("enableleaderboards", "false"));
 
             this.enableLogs = Boolean.parseBoolean(properties.getProperty("enablelogs", "true"));
 
@@ -1481,7 +1479,6 @@ public class Settings {
             properties.setProperty("keeplauncheropen", (this.keepLauncherOpen) ? "true" : "false");
             properties.setProperty("enableconsole", (this.enableConsole) ? "true" : "false");
             properties.setProperty("enabletrayicon", (this.enableTrayIcon) ? "true" : "false");
-            properties.setProperty("enableleaderboards", (this.enableLeaderboards) ? "true" : "false");
             properties.setProperty("enablelogs", (this.enableLogs) ? "true" : "false");
             properties.setProperty("enablepacktags", (this.enablePackTags) ? "true" : "false");
             properties.setProperty("enableserverchecker", (this.enableServerChecker) ? "true" : "false");
@@ -2870,13 +2867,7 @@ public class Settings {
         this.enableTrayIcon = enableTrayIcon;
     }
 
-    public boolean enableLeaderboards() {
-        return this.enableLeaderboards;
-    }
 
-    public void setEnableLeaderboards(boolean enableLeaderboards) {
-        this.enableLeaderboards = enableLeaderboards;
-    }
 
     public boolean enableLogs() {
         return this.enableLogs;

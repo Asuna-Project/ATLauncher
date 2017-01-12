@@ -42,8 +42,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
     private SpinnerModel daysOfLogsToKeepModel;
     private JSpinner daysOfLogsToKeep;
 
-    private JLabelWithHover enableLeaderboardsLabel;
-    private JCheckBox enableLeaderboards;
 
     private JLabelWithHover enableLoggingLabel;
     private JCheckBox enableLogs;
@@ -96,28 +94,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
         daysOfLogsToKeep.setValue(App.settings.getDaysOfLogsToKeep());
         add(daysOfLogsToKeep, gbc);
 
-        // Enable Leaderboards
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.insets = LABEL_INSETS;
-        gbc.anchor = GridBagConstraints.BASELINE_TRAILING;
-        enableLeaderboardsLabel = new JLabelWithHover(Language.INSTANCE.localize("settings.leaderboards") + "?",
-                HELP_ICON, Language.INSTANCE.localize("settings.leaderboardshelp"));
-        add(enableLeaderboardsLabel, gbc);
-
-        gbc.gridx++;
-        gbc.insets = FIELD_INSETS;
-        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-        enableLeaderboards = new JCheckBox();
-        if (App.settings.enableLeaderboards()) {
-            enableLeaderboards.setSelected(true);
-        }
-        if (!App.settings.enableLogs()) {
-            enableLeaderboards.setEnabled(false);
-        }
-        add(enableLeaderboards, gbc);
-
         // Enable Logging
 
         gbc.gridx = 0;
@@ -137,13 +113,9 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
                 if (!enableLogs.isSelected()) {
                     enableOpenEyeReporting.setSelected(false);
                     enableOpenEyeReporting.setEnabled(false);
-                    enableLeaderboards.setSelected(false);
-                    enableLeaderboards.setEnabled(false);
                 } else {
                     enableOpenEyeReporting.setSelected(true);
                     enableOpenEyeReporting.setEnabled(true);
-                    enableLeaderboards.setSelected(true);
-                    enableLeaderboards.setEnabled(true);
                 }
             }
         });
@@ -179,7 +151,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
     public void save() {
         App.settings.setForgeLoggingLevel((String) forgeLoggingLevel.getSelectedItem());
         App.settings.setDaysOfLogsToKeep((Integer) daysOfLogsToKeep.getValue());
-        App.settings.setEnableLeaderboards(enableLeaderboards.isSelected());
         App.settings.setEnableLogs(enableLogs.isSelected());
         App.settings.setEnableOpenEyeReporting(enableOpenEyeReporting.isSelected());
     }
@@ -198,8 +169,6 @@ public class LoggingSettingsTab extends AbstractSettingsTab implements Relocaliz
         this.daysOfLogsToKeepLabel.setText(Language.INSTANCE.localize("settings.daysoflogstokeep") + "?");
         this.daysOfLogsToKeepLabel.setToolTipText(Language.INSTANCE.localize("settings.daysoflogstokeephelp"));
 
-        this.enableLeaderboardsLabel.setText(Language.INSTANCE.localize("settings.leaderboards") + "?");
-        this.enableLeaderboardsLabel.setToolTipText(Language.INSTANCE.localize("settings.leaderboardshelp"));
 
         this.enableLoggingLabel.setText(Language.INSTANCE.localize("settings.logging") + "?");
         this.enableLoggingLabel.setToolTipText("<html>" + Language.INSTANCE.localizeWithReplace("settings" + "" +

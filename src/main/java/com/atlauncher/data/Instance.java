@@ -457,15 +457,6 @@ public class Instance implements Cloneable {
         return this.isConverted;
     }
 
-    /**
-     * Checks to see if Leaderboards are enabled for the Pack this Instance was created from. If the pack no longer
-     * exists we don't allow logging of Leaderboard statistics.
-     *
-     * @return true if Leaderboard are enabled and statistics can be sent
-     */
-    public boolean isLeaderboardsEnabled() {
-        return (this.realPack != null && this.realPack.isLeaderboardsEnabled());
-    }
 
     /**
      * Checks to see if Logging is enabled for the Pack this Instance was created from. If the pack no longer exists we
@@ -1290,10 +1281,6 @@ public class Instance implements Cloneable {
 
                         App.settings.setMinecraftLaunched(false);
                         if (!App.settings.isInOfflineMode()) {
-                            if (isLeaderboardsEnabled() && isLoggingEnabled() && !isDev() && App.settings.enableLogs
-                                ()) {
-                                final int timePlayed = (int) (end - start) / 1000;
-                            }
                             if (App.settings.keepLauncherOpen() && App.settings.hasUpdatedFiles()) {
                                 App.settings.reloadLauncherData();
                             }

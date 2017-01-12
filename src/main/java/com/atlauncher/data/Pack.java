@@ -49,7 +49,6 @@ public class Pack {
     private List<PackVersion> versions;
     private List<PackVersion> devVersions;
     private boolean createServer;
-    private boolean leaderboards;
     private boolean logging;
     private String description;
     private String discordInviteURL;
@@ -134,9 +133,6 @@ public class Pack {
         return this.logging;
     }
 
-    public boolean isLeaderboardsEnabled() {
-        return this.leaderboards;
-    }
 
     public void addTesters(List<String> users) {
         this.testers.addAll(users);
